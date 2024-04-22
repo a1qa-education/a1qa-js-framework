@@ -1,5 +1,3 @@
-import AllureReporter from '@wdio/allure-reporter';
-
 let logBuffer = [];
 export default class Logger {
   /**
@@ -31,10 +29,5 @@ export default class Logger {
     console.log(msg);
     logBuffer.push(msg);
     throw new Error(msg);
-  }
-
-  static flush() {
-    AllureReporter.addAttachment('info', logBuffer.join('\n'));
-    logBuffer = [];
   }
 };

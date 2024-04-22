@@ -1,6 +1,5 @@
 import path from 'node:path';
 import fs from 'fs-extra';
-import Logger from "../utils/Logger.js";
 
 export const downloadDir = path.resolve('./tmp');
 
@@ -15,7 +14,7 @@ export const mainConfig = {
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
     framework: 'mocha',
-    reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
+    reporters: ['spec'],
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000
@@ -27,7 +26,6 @@ export const mainConfig = {
 
     after: function (result, capabilities, specs) {
         fs.emptyDir(downloadDir);
-        Logger.flush();
     },
 
     afterTest: async function (test, context, { error, result, duration, passed, retries }) {
