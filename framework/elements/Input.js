@@ -89,6 +89,20 @@ export class Input extends BaseElement {
     }
 
     /**
+     * Get value of the Input element
+     * @returns {Promise<string>} Value from element
+     */
+    async getValue() {
+        Logger.info(`${this.log()}Get value from element`);
+        await this.state().waitForExist();
+        
+        const element = await this._get$();
+        const value = await element.getValue();
+        Logger.info(`Value: "${value}"`);
+        return value;
+    }
+
+    /**
      * Get placeholder from element
      * @returns {Promise<string>} Placeholder value
      */
