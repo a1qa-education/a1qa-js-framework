@@ -1,5 +1,4 @@
 import Browser from '../browser/Browser.js';
-import Timeouts from '../constants/Timeouts.js';
 import ElementType from '../constants/ElementType.js';
 import Logger from '../utils/Logger.js';
 import ElementStateProvider from './helper/StateProvider.js';

@@ -35,5 +35,4 @@ export class Dropdown extends BaseElement {
         const element = await this._get$();
         return element.selectByVisibleText(text);
     }
-
 }

@@ -1,7 +1,6 @@
 import Logger from '../../utils/Logger.js';
 
 export class Window {
-
     constructor() {
         this.browser = null;
     }

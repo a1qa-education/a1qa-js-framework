@@ -17,7 +17,7 @@ export class ElementsList {
         await this.state().waitForExist();
         const listOfElements = await $$(this.locator);
         Logger.info(`Found '${listOfElements.length}' elements`);
-        
+
         const elements = [];
         for (const [index, el] of listOfElements.entries()) {
             const element = new this.elementType(el, `${this.name} #${index}`);
@@ -25,5 +25,4 @@ export class ElementsList {
         }
         return elements;
     }
-
 }

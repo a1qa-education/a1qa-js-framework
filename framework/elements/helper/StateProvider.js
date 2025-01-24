@@ -144,5 +144,4 @@ export default class ElementStateProvider {
       }
     }
   }
-
 }

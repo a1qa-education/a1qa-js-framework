@@ -1,7 +1,6 @@
 import Logger from '../../utils/Logger.js';
 
 export class IFrame {
-
     constructor() {
         this.browser = null;
     }
@@ -28,5 +27,4 @@ export class IFrame {
         Logger.info('Switch from element to the parent frame');
         return this.browser.switchToParentFrame();
     }
-
 };

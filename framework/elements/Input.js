@@ -1,12 +1,7 @@
-
 import Logger from '../utils/Logger.js';
 import BaseElement from './BaseElement.js';
-import Keys from '../constants/Keys.js';
-import Browser from '../browser/Browser.js';
 import ElementType from '../constants/ElementType.js';
 import ElementAttributes from '../constants/ElementAttributes.js';
-
-// const maskedValue = '***********';
 
 export class Input extends BaseElement {
     constructor(locator, name) {
@@ -95,7 +90,7 @@ export class Input extends BaseElement {
     async getValue() {
         Logger.info(`${this.log()}Get value from element`);
         await this.state().waitForExist();
-        
+
         const element = await this._get$();
         const value = await element.getValue();
         Logger.info(`Value: "${value}"`);

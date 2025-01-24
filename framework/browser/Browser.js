@@ -108,5 +108,4 @@ class Browser {
   }
 };
 
-
 export default new Browser();
