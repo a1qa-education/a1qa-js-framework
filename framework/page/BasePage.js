@@ -1,5 +1,4 @@
 import Timeouts from '../constants/Timeouts.js';
-import BaseElement from '../elements/BaseElement.js';
 import Logger from '../utils/Logger.js';
 
 export default class BasePage {
@@ -36,5 +35,4 @@ export default class BasePage {
     Logger.info(`Page "${this.name}" is opened - "${isOpened}"`);
     return isOpened;
   }
-
 }

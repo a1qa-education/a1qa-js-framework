@@ -1,10 +1,10 @@
-import Timeouts from '../../constants/Timeouts.js';
-import Logger from '../../utils/Logger.js';
 import fs from 'fs-extra'
 import path from 'path'
 
-export class File {
+import Timeouts from '../../constants/Timeouts.js';
+import Logger from '../../utils/Logger.js';
 
+export class File {
     constructor() {
         this.browser = null;
     }

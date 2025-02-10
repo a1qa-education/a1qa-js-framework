@@ -1,4 +1,4 @@
-
+import { browser } from '@wdio/globals';
 import Timeouts from '../constants/Timeouts.js';
 import Logger from '../utils/Logger.js';
 import { Dialog, File, IFrame, Window } from './entities/index.js';
@@ -31,7 +31,7 @@ class Browser {
 
   /**
    * Get browser
-   * @returns {Browser} Browser
+   * @returns {WebdriverIO.Browser} Browser
    */
   #getBrowser() {
     return browser;
@@ -108,5 +108,4 @@ class Browser {
   }
 };
 
-
-export default new Browser(browser);
+export default new Browser();

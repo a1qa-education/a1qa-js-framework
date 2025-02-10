@@ -6,5 +6,4 @@ export class Frame extends BaseElement {
         super(locator, name);
         this.type = ElementType.IFRAME;
     }
-
 }

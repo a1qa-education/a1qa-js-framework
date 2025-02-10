@@ -1,9 +1,7 @@
-
 import Timeouts from '../../constants/Timeouts.js';
 import Logger from '../../utils/Logger.js';
 
 export class Dialog {
-
     constructor() {
         this.browser = null;
     }
@@ -94,5 +92,4 @@ export class Dialog {
         Logger.info(`Type text "${text}" to browser dialog`);
         return this.browser.sendAlertText(text);
     }
-
 };

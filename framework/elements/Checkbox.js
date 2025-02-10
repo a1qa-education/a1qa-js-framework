@@ -56,5 +56,4 @@ export class Checkbox extends BaseElement {
 
     return element.state().isSelected();
   }
-
 }

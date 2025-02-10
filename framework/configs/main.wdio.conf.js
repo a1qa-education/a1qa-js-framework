@@ -20,7 +20,7 @@ export const mainConfig = {
         timeout: 60000
     },
 
-    onPrepare: function() {
+    onPrepare: function () {
         fs.ensureDir(downloadDir);
     },
 
@@ -33,5 +33,4 @@ export const mainConfig = {
             await browser.takeScreenshot();
         }
     },
-
 }

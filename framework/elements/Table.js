@@ -65,5 +65,4 @@ export class Table extends BaseElement {
         }
         return arrayOfData;
     }
-
 }

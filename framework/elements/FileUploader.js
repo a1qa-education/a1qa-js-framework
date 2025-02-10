@@ -1,3 +1,5 @@
+import Logger from "../utils/Logger";
+
 export class FileUploader extends BaseElement {
     constructor(locator, name) {
         super(locator, name);
