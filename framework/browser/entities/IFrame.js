@@ -1,4 +1,5 @@
 import Logger from '../../utils/Logger.js';
+import { Frame } from '../../elements/index.js';
 
 export class IFrame {
     constructor() {
