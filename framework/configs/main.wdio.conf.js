@@ -13,12 +13,7 @@ export const mainConfig = {
     waitforTimeout: 0,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
-    framework: 'mocha',
     reporters: ['spec'],
-    mochaOpts: {
-        ui: 'bdd',
-        timeout: 60000
-    },
 
     onPrepare: function () {
         fs.ensureDir(downloadDir);
@@ -28,7 +23,7 @@ export const mainConfig = {
         fs.emptyDir(downloadDir);
     },
 
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+    afterScenario: async function (test, context, { error, result, duration, passed, retries }) {
         if (!passed) {
             await browser.takeScreenshot();
         }
