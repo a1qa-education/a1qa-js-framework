@@ -8,46 +8,54 @@ Given(/^User opens the Steam main page$/, async () => {
 });
 
 When(/^User navigates to the Community Market$/, async () => {
-    await browser.url('https://steamcommunity.com/market/');
+    await CommunityMarketPage.selectCommunityMarket()
     await expect(CommunityMarketPage.communityMarketPageTitle).toHaveText('Community Market');
 });
 
-Then(/^User opens the advanced search options$/, async () => {
+When(/^User opens the advanced search options$/, async () => {
+    await expect(CommunityMarketPage.showAdvancedOptions).toBeDisplayed();
     await CommunityMarketPage.openAdvancedOptions()
 });
 
-Then(/^User selects the game "([^"]+)"$/, async (gameName) => {
+When(/^User selects the game "([^"]+)"$/, async (gameName) => {
+    await expect(CommunityMarketPage.communityMarketModalTitle).toHaveText('Search Community Market');
+    await expect(CommunityMarketPage.searchButton).toBeDisplayed();
+    await expect(CommunityMarketPage.gameDropdown).toBeDisplayed();
     await CommunityMarketPage.selectGame(gameName);
 });
 
-Then(/^User selects the hero "([^"]+)"$/, async (heroName) => {
+When(/^User selects the hero "([^"]+)"$/, async (heroName) => {
     await CommunityMarketPage.selectHero(heroName);
 });
 
-Then(/^User selects the rarity "([^"]+)"$/, async (rarityName) => {
+When(/^User selects the rarity "([^"]+)"$/, async (rarityName) => {
     await CommunityMarketPage.selectRarity(rarityName);
 });
 
-Then(/^User clicks the search button$/, async () => {
+When(/^User clicks the search button$/, async () => {
     await CommunityMarketPage.clickOnSearchButton();
 });
 
-Then(/^Results are displayed with the correct message$/, async () => {
-    await CommunityMarketPage.validateResults();
+Then(/^Results are displayed with the correct message and tags$/, async (dataTable) => {
+    const expectedTags = dataTable.raw().flat();
+    const actualTags = await CommunityMarketPage.getSelectedFilterTexts();
+    await expect(CommunityMarketPage.resultMessage).toHaveText('Showing results for:');
+    await expect(CommunityMarketPage.resultTable).toBeDisplayed();
+    expect(actualTags).toEqual(expect.arrayContaining(expectedTags));
 });
 
 When(/^User selects the first item from the results$/, async () => {
-    firstResultText=await CommunityMarketPage.firstResult.getText();
+    firstResultText=await CommunityMarketPage.getFirstResultText();
     await CommunityMarketPage.selectFirstResult();
 });
 
-Then(/^The item page displays correct information for selected filters$/, async () => {
-    const itemTitleText = await CommunityMarketPage.itemTitle.getText();
+Then(/^User should see item with game "([^"]*)" and hero "([^"]*)"$/, async (game, hero) => {
+    const itemTitleText = await CommunityMarketPage.getItemTitleText();
     const currentUrl = await browser.getUrl();
     await expect(currentUrl).toContain('/market/listings');
     await expect(itemTitleText).toEqual(firstResultText);
-    await expect(CommunityMarketPage.gameNameTitle).toHaveText('Dota 2');
-    await expect(CommunityMarketPage.heroNameTitle).toHaveText('Used By: Phantom Assassin');
+    await expect(CommunityMarketPage.gameNameTitle).toHaveText(game);
+    await expect(CommunityMarketPage.heroNameTitle).toHaveText(hero);
 });
 
 Then(/^Prices are shown in ascending order$/, async () => {
@@ -65,6 +73,3 @@ Then(/^Prices are shown in descending order$/, async () => {
     const descendingOrderPrice = [...prices].sort((a, b) => b - a);
     await expect(prices).toEqual(descendingOrderPrice);
 });
-
-
-

@@ -2,6 +2,14 @@ import { $ } from '@wdio/globals'
 
 class CommunityMarketPage {
 //locators
+    get communityTab() {
+        return $$('//a[@data-tooltip-content=".submenu_Community"]');
+    }
+
+    marketOption(optionText) {
+        return $(`//a[normalize-space()="${optionText}"]`);
+    }
+
     get communityMarketPageTitle() {
         return $('//span[@class="market_title_text"]');
     }
@@ -14,10 +22,6 @@ class CommunityMarketPage {
         return $('//div[@class="title_text"]');
     }
 
-    get closeIcon() {
-        return $('//div[@class="newmodal_close"]');
-    }
-
     get gameDropdown() {
         return $('#market_advancedsearch_appselect_activeapp');
     }
@@ -27,7 +31,7 @@ class CommunityMarketPage {
     }
 
     get heroFilter(){
-        return $('(//div[@class="econ_tag_filter_category"]//select)[1]');
+        return $('//select[contains(@name,"Hero")]');
     }
 
     heroName(name) {
@@ -39,11 +43,15 @@ class CommunityMarketPage {
     }
 
     get searchButton() {
-        return $('//div[@class="btn_medium btn_green_white_innerfade"]');
+        return $('.market_advancedsearch_bottombuttons>div');
     }
 
     get resultMessage() {
         return $('//h2[@class="market_search_results_title"]');
+    }
+
+    get selectedFilterNames() {
+        return $$('.market_searchedForTerm');
     }
 
     get resultTable() {
@@ -51,7 +59,7 @@ class CommunityMarketPage {
     }
 
     get firstResult() {
-        return $('(//span[@class="market_listing_item_name"])[1]');
+        return $('//span[@class="market_listing_item_name"]');
     }
 
     get itemTitle() {
@@ -59,7 +67,7 @@ class CommunityMarketPage {
     }
 
     get heroNameTitle() {
-        return $('(//div[@class="descriptor"])[1]');
+        return $('//div[contains(text(),"Used By")]')
     }
 
     get gameNameTitle() {
@@ -67,23 +75,29 @@ class CommunityMarketPage {
     }
 
     get priceTab() {
-        return $('//div[contains(@class,"price market_sortable_column")]');
+        return $('//div[@data-sorttype="price"]');
     }
 
-    get priceValue() {
+    get priceValues() {
         return $$('//span[@class="normal_price"]');
     }
 
 //methods
+    async selectCommunityMarket() {
+        await this.communityTab[1].moveTo();
+        for (let i = 0; i < 3; i++) {
+            await browser.keys(['ArrowDown']);
+            await browser.pause(200);
+        }
+        const marketOption = await $('=Market');
+        await marketOption.click();
+    }
+
     async openAdvancedOptions() {
-        await expect(this.showAdvancedOptions).toBeDisplayed();
         await this.showAdvancedOptions.click();
     }
 
     async selectGame(name) {
-        await expect(this.communityMarketModalTitle).toHaveText('Search Community Market');
-        await expect(this.searchButton).toBeDisplayed();
-        await expect(this.gameDropdown).toBeDisplayed();
         await this.gameDropdown.click();
         await this.gameName(name).click();
     }
@@ -101,18 +115,24 @@ class CommunityMarketPage {
         await this.searchButton.click();
     }
 
-    async validateResults() {
-        await expect(this.resultMessage).toHaveText('Showing results for:');
-        await expect(this.resultTable).toBeDisplayed();
+    async getSelectedFilterTexts() {
+        const elements = await this.selectedFilterNames;
+        return Promise.all(elements.map(async (el) => await el.getText()));
     }
 
+    async getFirstResultText() {
+        return await this.firstResult[0].getText();
+    }
     async selectFirstResult() {
-        await this.firstResult.click();
+        await this.firstResult[0].click();
+    }
+
+    async getItemTitleText() {
+        return await this.itemTitle.getText();
     }
 
     async clickOnPriceTab() {
-        await expect(this.priceTab).toBeDisplayed();
-        await this.priceTab.click();
+        await this.priceTab[0].click();
     }
 
     async getAllPrices() {
