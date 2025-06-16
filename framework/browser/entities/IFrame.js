@@ -17,7 +17,7 @@ export class IFrame {
         await frame.state().waitForDisplayed();
 
         const element = await frame._get$();
-        return this.browser.switchToFrame(element);
+        return this.browser.switchFrame(element);
     }
 
     /**
