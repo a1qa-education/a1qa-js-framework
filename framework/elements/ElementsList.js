@@ -1,10 +1,10 @@
 import Logger from '../utils/Logger.js';
+import BaseElement from './BaseElement.js';
 
-export class ElementsList {
+export class ElementsList extends BaseElement {
     constructor(elementType, locator, name) {
-        this.elementType = elementType;
-        this.locator = locator;
-        this.name = name;
+      super(locator, name);
+      this.elementType = elementType;
     }
 
     /**
