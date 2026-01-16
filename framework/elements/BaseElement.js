@@ -197,7 +197,7 @@ export default class BaseElement {
         await this.state().waitForExist();
 
         const element = await this._get$()
-        const { value } = element.getCSSProperty(property);
+        const { value } = await element.getCSSProperty(property);
         Logger.info(`Received CSS property "${property}" = "${value}"`);
         return value;
     }
